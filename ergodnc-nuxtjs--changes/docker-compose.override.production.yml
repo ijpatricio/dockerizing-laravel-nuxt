@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    nuxt:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        labels:
+            - traefik.http.routers.nuxt.rule=Host(`app.ergodnc.com`)
+            - traefik.http.routers.nuxt.tls.certresolver=leresolver

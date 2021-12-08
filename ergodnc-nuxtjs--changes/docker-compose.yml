@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    nuxt:
+        image: 'ijpatricio/ergodnc_api:${TAG:-latest}'
+        labels:
+            - traefik.enable=true
+            - traefik.http.routers.nuxt.entrypoints=https
+            - traefik.http.routers.nuxt.service=nuxt
+            - traefik.http.services.nuxt.loadbalancer.server.port=3000
+
+networks:
+    development:
+        external: true

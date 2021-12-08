@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    nuxt:
+        networks: [ development ]
+        volumes:
+            - .:/app
+        command: 'npm run dev'
+        build:
+            context: .
+            dockerfile: development.Dockerfile
+        labels:
+            - traefik.http.routers.nuxt.rule=Host(`app.ergodnc.test`)
+            - traefik.http.routers.nuxt.tls=true
