@@ -1,0 +1,16 @@
+http:
+  routers:
+    nuxtproxy:
+      entryPoints:
+        - https
+      service: nuxt@file
+      rule: Host(`app.ergodnc.test`)
+      tls: true
+
+  services:
+    nuxt:
+      loadBalancer:
+        servers:
+          # this service is running on the same host as the proxy, on port 3000
+          # `npm run dev`
+          - url: http://host.docker.internal:3000

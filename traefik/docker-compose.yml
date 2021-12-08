@@ -1,0 +1,47 @@
+version: "3.7"
+
+networks:
+  development:
+    external: true
+
+services:
+  traefik_router:
+    image: traefik:v2.3
+    networks:
+      - development
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./conf_local:/conf
+      - ./certs/local:/certs
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik_router.tls=true"
+      - "traefik.http.routers.traefik_router.entrypoints=http"
+      - "traefik.http.routers.traefik_router.entrypoints=https"
+      - "traefik.http.routers.traefik_router.service=api@internal"
+      - "traefik.http.services.traefik_router.loadbalancer.server.port=8080"
+      - "traefik.http.routers.traefik_router.rule=Host(`traefik.io.test`)"
+
+      # Global redirect to HTTPS
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=http"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+
+      ## Middlewares
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+    command:
+      - --accesslog=true
+      - --log.level=DEBUG
+      - --api.insecure=true
+      - --api.dashboard=true
+      - --entrypoints.http.address=:80
+      - --entrypoints.https.address=:443
+      - --providers.docker=true
+      - --providers.file.directory=/conf
+      - --providers.file.watch=true
+      - --providers.docker.exposedbydefault=false

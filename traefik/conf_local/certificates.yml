@@ -1,0 +1,9 @@
+tls:
+  stores:
+    default: {}
+
+  certificates:
+    - certFile: /certs/ergodnc.test.crt
+      keyFile: /certs/ergodnc.test.key
+    - certFile: /certs/io.test.crt
+      keyFile: /certs/io.test.key

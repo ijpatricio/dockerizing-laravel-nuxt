@@ -1,0 +1,6 @@
+[submodule "ergodnc"]
+	path = ergodnc
+	url = git@github.com:themsaid/ergodnc.git
+[submodule "ergodnc-nuxtjs"]
+	path = ergodnc-nuxtjs
+	url = https://github.com/themsaid/ergodnc-nuxtjs

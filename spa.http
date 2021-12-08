@@ -1,0 +1,8 @@
+POST {{host}}/login
+content-type: application/json
+accept: application/json
+
+{
+  "email": "mohamed@laravel.com",
+  "password": "asdasdasd"
+}

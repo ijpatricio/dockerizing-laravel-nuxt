@@ -1,0 +1,14 @@
+http:
+  routers:
+    laravelproxy:
+      entryPoints:
+        - https
+      service: laravel@file
+      rule: Host(`api.ergodnc.test`)
+      tls: true
+
+  services:
+    laravel:
+      loadBalancer:
+        servers:
+          - url: http://host.docker.internal:8000
