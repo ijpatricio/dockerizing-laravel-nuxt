@@ -1,0 +1,6 @@
+[submodule "nuxtjs"]
+	path = ergodnc-nuxtjs
+	url = https://github.com/themsaid/ergodnc-nuxtjs.git
+[submodule "laravelapi"]
+	path = ergodnc
+	url = https://github.com/themsaid/ergodnc.git
